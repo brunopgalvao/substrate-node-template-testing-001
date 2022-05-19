@@ -10,6 +10,15 @@ use sp_runtime::{
 type UncheckedExtrinsic = frame_system::mocking::MockUncheckedExtrinsic<Test>;
 type Block = frame_system::mocking::MockBlock<Test>;
 
+frame_support::parameter_types! {
+    pub const MaxValue: u32 = 50;
+}
+
+impl pallet_template::Config for Test {
+    type Event = Event;
+    type MaxValue = MaxValue;
+}
+
 // Configure a mock runtime to test the pallet.
 frame_support::construct_runtime!(
 	pub enum Test where
@@ -47,10 +56,6 @@ impl system::Config for Test {
 	type SS58Prefix = ConstU16<42>;
 	type OnSetCode = ();
 	type MaxConsumers = frame_support::traits::ConstU32<16>;
-}
-
-impl pallet_template::Config for Test {
-	type Event = Event;
 }
 
 // Build genesis storage according to the mock runtime.
